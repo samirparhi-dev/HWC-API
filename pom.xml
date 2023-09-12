@@ -16,7 +16,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.3.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -118,7 +118,7 @@
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.0</version>
+			<version>2.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -281,10 +281,9 @@
 								<echo>
 									concatinating properties file ${target-properties} and
 									${source-properties}
-										$${server-password} -->
+										$${server-password} --&gt;
 								</echo>
-								<concat destfile="${target-properties}" append="yes"
-									force="yes">
+								<concat destfile="${target-properties}" append="yes" force="yes">
 									<fileset file="${source-properties}">
 									</fileset>
 								</concat>
