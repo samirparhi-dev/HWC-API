@@ -73,7 +73,6 @@ public class FoetalMonitorServiceImpl implements FoetalMonitorService {
 	@Value("${foetalMonitorAPIKey}")
 	private String foetalMonitorAPIKey;
 
-
 	static HttpURLConnection con;
 
 	private static HttpUtils httpUtils = new HttpUtils();
@@ -107,7 +106,8 @@ public class FoetalMonitorServiceImpl implements FoetalMonitorService {
 			foetalMonitorDataOutside.setPartnerName(foetalMonitorDataOutside.getMother().get("partnerName"));
 
 			// fetching data from the db
-			FoetalMonitor foetalMonitorFetchDataDB = foetalMonitorRepo.getFoetalMonitorDetails(foetalMonitorDataOutside.getFoetalMonitorID());
+			FoetalMonitor foetalMonitorFetchDataDB = foetalMonitorRepo
+					.getFoetalMonitorDetails(foetalMonitorDataOutside.getFoetalMonitorID());
 			if (foetalMonitorFetchDataDB == null || foetalMonitorFetchDataDB.getFoetalMonitorID() == null)
 				throw new IEMRException("Invalid partnerfoetalMonitorID");
 
@@ -234,7 +234,8 @@ public class FoetalMonitorServiceImpl implements FoetalMonitorService {
 				foetalMonitorTestDetails.setTestName(request.getTestName());
 
 				// checking whether device ID is mapped or not
-				FoetalMonitorDeviceID deviceIDForVanID = foetalMonitorDeviceIDRepo.getDeviceIDForVanID(request.getVanID());
+				FoetalMonitorDeviceID deviceIDForVanID = foetalMonitorDeviceIDRepo
+						.getDeviceIDForVanID(request.getVanID());
 
 				if (deviceIDForVanID != null && deviceIDForVanID.getDeviceID() != null) {
 					foetalMonitorTestDetails.setDeviceID(deviceIDForVanID.getDeviceID());
@@ -250,7 +251,8 @@ public class FoetalMonitorServiceImpl implements FoetalMonitorService {
 				String requestObj = new Gson().toJson(foetalMonitorTestDetails).toString();
 
 				logger.info("calling foetal monitor API with request OBJ : " + requestObj);
-				// Invoking Foetal monitor API - Sending mother data and test details to foetal monitor
+				// Invoking Foetal monitor API - Sending mother data and test details to foetal
+				// monitor
 				result = httpUtils.postWithResponseEntity(
 						ConfigProperties.getPropertyByName("foetalMonitor-api-url-ANCTestDetails"), requestObj, header);
 				logger.info("Foetal monitor register mother API response : " + result.toString());
@@ -284,7 +286,8 @@ public class FoetalMonitorServiceImpl implements FoetalMonitorService {
 			JsonParser jsnParser = new JsonParser();
 			JsonElement jsnElmnt = jsnParser.parse(e.getResponseBodyAsString());
 			jsnOBJ = jsnElmnt.getAsJsonObject();
-			if (request != null && request.getPartnerFoetalMonitorId() != null && request.getPartnerFoetalMonitorId() > 0) {
+			if (request != null && request.getPartnerFoetalMonitorId() != null
+					&& request.getPartnerFoetalMonitorId() > 0) {
 				// String response = e.getres;
 				logger.info("Foetal monitor test request transaction roll-backed");
 				request.setDeleted(true);
@@ -298,7 +301,8 @@ public class FoetalMonitorServiceImpl implements FoetalMonitorService {
 
 		} catch (Exception e) {
 			// if record is created, and not raised in foetal monitor device, soft delete it
-			if (request != null && request.getPartnerFoetalMonitorId() != null && request.getPartnerFoetalMonitorId() > 0) {
+			if (request != null && request.getPartnerFoetalMonitorId() != null
+					&& request.getPartnerFoetalMonitorId() > 0) {
 				logger.info("Foetal monitor test request transaction roll-backed");
 				request.setDeleted(true);
 				foetalMonitorRepo.save(request);
