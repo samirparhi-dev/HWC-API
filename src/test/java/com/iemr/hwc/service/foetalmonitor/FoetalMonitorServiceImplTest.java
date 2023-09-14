@@ -30,6 +30,8 @@ public class FoetalMonitorServiceImplTest {
 
     }
 
+    String result = "";
+
     @Test
     public void testGeneratePDF() throws Exception {
         // Set up a test InputStream to simulate the HTTP response
@@ -45,26 +47,30 @@ public class FoetalMonitorServiceImplTest {
 
         // Ensure the directory exists
         Files.createDirectories(Paths.get(foetalMonitorFilePath));
+
         try {
 
             // Invoke the generatePDF method
-            String result = foetalMonitorServiceImpl.generatePDF(testFilePath);
-            System.out.println(result);
+            result = foetalMonitorServiceImpl.generatePDF(testFilePath);
             // Assert that the result is not null
             assertNotNull(result);
             // Assert that the result starts with the foetalMonitorFilePath
             assertTrue(result.startsWith(foetalMonitorFilePath));
-            boolean check = new File(foetalMonitorFilePath, "sampleMedicalReport.pdf").exists();
+            File f = new File(result);
+            boolean check = f.exists();
             assertTrue(check);
         } catch (Exception e) {
-            fail("Exception should not be thrown: " + e);
+            fail("Exception should not be thrown: " + e.getMessage());
         } finally {
             // Clean up the temporary directory
-            Files.deleteIfExists(Paths.get(foetalMonitorFilePath));
+            Files.delete(Paths.get(result));
         }
         // Verify that the HttpURLConnection was used properly
+        System.out.println("Reaching Goal1");
         verify(mockConnection).setRequestMethod("GET");
+        System.out.println("Reaching Goal2");
         verify(mockConnection).disconnect();
+        System.out.println("Reaching Goal3");
     }
 
     @Test
@@ -77,7 +83,7 @@ public class FoetalMonitorServiceImplTest {
             assertFalse(base64Data.isEmpty());
         } catch (IEMRException | IOException e) {
             // Handle exceptions as needed, or fail the test if you expect them
-            fail("Exception thrown: " + e.getMessage());
+            fail("Exception thrown: " + e);
         }
     }
 }

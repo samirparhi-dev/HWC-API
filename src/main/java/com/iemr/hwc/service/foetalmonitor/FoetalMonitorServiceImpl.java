@@ -182,22 +182,14 @@ public class FoetalMonitorServiceImpl implements FoetalMonitorService {
 
 		try {
 
-			System.out.println(filePath);
 			URI tempFilePath1 = URI.create(filePath).normalize();
-			System.out.println(tempFilePath1);
 			String tempFilePath2 = tempFilePath1.toString();
-			System.out.println(tempFilePath2);
-			// String sanitizedPath =
-			// Paths.get(UriComponentsBuilder.fromPath(tempFilePath2).build().getPath()).toString();
-			// System.out.println(sanitizedPath);
 			URL url = new URL(tempFilePath2);
-			System.out.println(url.toString());
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-
 			con.setRequestMethod("GET");
-
 			String fileName = System.currentTimeMillis() + ".pdf";
-			Path filePathLocal = Paths.get(foetalMonitorFilePath, fileName);
+			String tempFilePath = "/Users/samirranjanparhi/test/foetalMonitorFiles";
+			Path filePathLocal = Paths.get(tempFilePath, fileName);
 			try (InputStream inputStream = con.getInputStream()) {
 				Files.copy(inputStream, filePathLocal, StandardCopyOption.REPLACE_EXISTING);
 			}
@@ -218,10 +210,11 @@ public class FoetalMonitorServiceImpl implements FoetalMonitorService {
 	public String readPDFANDGetBase64(String filePath) throws IEMRException, IOException, FileNotFoundException {
 
 		URI tempFilePath1 = URI.create(filePath).normalize();
-		String tempFilePath2 = tempFilePath1.toString();
-		Path sanitizedPath = Paths.get(UriComponentsBuilder.fromPath(tempFilePath2).build().getPath());
+		Path tempFilePath2 = Paths.get(tempFilePath1.toString());
+		// Path sanitizedPath =
+		// Paths.get(UriComponentsBuilder.fromPath(tempFilePath2).build().getPath());
 		try {
-			byte[] byteArray = Files.readAllBytes(sanitizedPath);
+			byte[] byteArray = Files.readAllBytes(tempFilePath2);
 			return Base64.getEncoder().encodeToString(byteArray);
 		} catch (MalformedURLException e) {
 			return "This is a malformed URL";
