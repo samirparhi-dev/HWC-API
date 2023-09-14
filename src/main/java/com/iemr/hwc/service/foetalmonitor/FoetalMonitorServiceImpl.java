@@ -178,15 +178,22 @@ public class FoetalMonitorServiceImpl implements FoetalMonitorService {
 	}
 
 	// generate report file in file storage
-	private String generatePDF(String filePath) throws IEMRException {
+	public String generatePDF(String filePath) throws IEMRException {
 
 		try {
-			URI tempFilePath1 = URI.create(filePath).normalize();
-			String tempFilePath2 = tempFilePath1.toString();
-			String sanitizedPath = Paths.get(UriComponentsBuilder.fromPath(tempFilePath2).build().getPath()).toString();
 
-			URL url = new URL(sanitizedPath);
+			System.out.println(filePath);
+			URI tempFilePath1 = URI.create(filePath).normalize();
+			System.out.println(tempFilePath1);
+			String tempFilePath2 = tempFilePath1.toString();
+			System.out.println(tempFilePath2);
+			// String sanitizedPath =
+			// Paths.get(UriComponentsBuilder.fromPath(tempFilePath2).build().getPath()).toString();
+			// System.out.println(sanitizedPath);
+			URL url = new URL(tempFilePath2);
+			System.out.println(url.toString());
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
 			con.setRequestMethod("GET");
 
 			String fileName = System.currentTimeMillis() + ".pdf";

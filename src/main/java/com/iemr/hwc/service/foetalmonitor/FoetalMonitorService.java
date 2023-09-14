@@ -35,5 +35,7 @@ public interface FoetalMonitorService {
 
 	String getFoetalMonitorDetails(Long benFlowID) throws IEMRException;
 
+	public String generatePDF(String filePath) throws IEMRException;
+
 	public String readPDFANDGetBase64(String filePath) throws IEMRException, IOException, FileNotFoundException;
 }
