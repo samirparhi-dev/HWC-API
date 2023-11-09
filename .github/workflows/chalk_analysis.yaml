@@ -11,19 +11,6 @@ on:
       - "*.nimble"
       # ignore docs not to waste CI minutes
       - "!src/docs/**"
-#   pull_request:
-#     types:
-#       - opened
-#       - synchronize
-#       - reopened
-#       - ready_for_review
-#     paths:
-#       - src/**
-#       - tests/**
-#       - config.nims
-#       - "*.nimble"
-#       # ignore docs not to waste CI minutes
-#       - "!src/docs/**"
 
 permissions:
   contents: read
