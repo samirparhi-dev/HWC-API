@@ -39,11 +39,6 @@ jobs:
         with:
           name: chalk Result
           path: ./chalk_result.json
-
-      - name: Download json Report
-        uses: actions/download-artifact@v2
-        with:
-          name: chalk Result
-          path: /Users/samir/Downloads/chalk_result.json
+          retention-days: 5
       
 
