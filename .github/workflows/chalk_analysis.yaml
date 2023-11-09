@@ -29,9 +29,21 @@ jobs:
       - name: Covert Chalk result to Json format
         run: |
           cat ~/.local/chalk/chalk.log > chalk_result.json
-          
+
       - name: Display Chalk result
         run: |
           cat chalk_result.json
+
+      - name: Upload json Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: chalk Result
+          path: ./chalk_result.json
+
+      - name: Download json Report
+        uses: actions/download-artifact@v2
+        with:
+          name: chalk Result
+          path: /Users/samir/Downloads/chalk_result.json
       
 
