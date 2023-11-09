@@ -26,7 +26,12 @@ jobs:
         run: |
           ./chalk insert
 
-      - name: Display Chack result
+      - name: Covert Chalk result to Json format
         run: |
-          cat ~/.local/chalk/chalk.log
+          cat ~/.local/chalk/chalk.log > chalk_result.json
+          
+      - name: Display Chalk result
+        run: |
+          cat chalk_result.json
+      
 
