@@ -3,7 +3,7 @@ name: Chalk test
 on:
   push:
     branches:
-      - main
+      - develop
     paths:
       - src/**
       - tests/**
