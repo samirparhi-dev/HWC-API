@@ -1,0 +1,64 @@
+name: tests
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - src/**
+      - tests/**
+      - config.nims
+      - "*.nimble"
+      # ignore docs not to waste CI minutes
+      - "!src/docs/**"
+#   pull_request:
+#     types:
+#       - opened
+#       - synchronize
+#       - reopened
+#       - ready_for_review
+#     paths:
+#       - src/**
+#       - tests/**
+#       - config.nims
+#       - "*.nimble"
+#       # ignore docs not to waste CI minutes
+#       - "!src/docs/**"
+
+permissions:
+  contents: read
+  packages: write
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+
+    # if: |
+    #   (
+    #     github.event_name == 'pull_request' &&
+    #     !github.event.pull_request.draft &&
+    #     !contains(github.event.pull_request.body, format('skip:{0}', github.workflow))
+    #   ) || (
+    #     github.event_name == 'push' &&
+    #     endsWith(github.repository, 'chalk')
+    #   ) || (
+    #     github.event_name == 'workflow_dispatch'
+    #   ) || (
+    #     github.event_name == 'schedule'
+    #   )
+
+    # concurrency:
+    #   # only allow one job per PR running
+    #   # older pending jobs will be cancelled not to waste CI minutes
+    #   # cannot use github.job here https://github.com/community/community/discussions/13496
+    #   group: ${{ github.workflow }}-pytest-${{ github.ref }}
+    #   cancel-in-progress: true
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+
+      - name: Download Chalk Binary and check version
+        run: |
+          curl -fsSL "https://crashoverride.com/dl/chalk/chalk-0.2.2-$(uname -s)-$(uname -m)" > chalk && chmod +x chalk ./chalk version
+        
