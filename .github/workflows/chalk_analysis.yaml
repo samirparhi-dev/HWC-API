@@ -24,4 +24,4 @@ jobs:
           curl -fsSL "https://crashoverride.com/dl/chalk/chalk-0.2.2-$(uname -s)-$(uname -m)" > chalk && chmod +x chalk && ./chalk version
       - name: Do Chalk insert
         run: |
-          chalk insert
+          ./chalk insert
