@@ -28,5 +28,5 @@ jobs:
 
       - name: Display Chack result
         run: |
-          vi ~/.local/chalk/chalk.log
+          cat ~/.local/chalk/chalk.log
 
