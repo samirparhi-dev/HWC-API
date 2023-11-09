@@ -1,4 +1,4 @@
-name: tests
+name: Chalk test
 
 on:
   push:
@@ -7,8 +7,6 @@ on:
     paths:
       - src/**
       - tests/**
-      - config.nims
-      - "*.nimble"
       # ignore docs not to waste CI minutes
       - "!src/docs/**"
 
@@ -16,29 +14,8 @@ permissions:
   contents: read
   packages: write
 jobs:
-  pytest:
+   Build:
     runs-on: ubuntu-latest
-
-    # if: |
-    #   (
-    #     github.event_name == 'pull_request' &&
-    #     !github.event.pull_request.draft &&
-    #     !contains(github.event.pull_request.body, format('skip:{0}', github.workflow))
-    #   ) || (
-    #     github.event_name == 'push' &&
-    #     endsWith(github.repository, 'chalk')
-    #   ) || (
-    #     github.event_name == 'workflow_dispatch'
-    #   ) || (
-    #     github.event_name == 'schedule'
-    #   )
-
-    # concurrency:
-    #   # only allow one job per PR running
-    #   # older pending jobs will be cancelled not to waste CI minutes
-    #   # cannot use github.job here https://github.com/community/community/discussions/13496
-    #   group: ${{ github.workflow }}-pytest-${{ github.ref }}
-    #   cancel-in-progress: true
 
     steps:
       - name: Checkout Code
