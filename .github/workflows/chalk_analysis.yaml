@@ -1,19 +1,8 @@
-name: Chalk test
+name: Chalk Analysis
 
 on:
   push:
     branches: [ "develop"]
-    paths-ignore:
-     - target/**
-     - dist/**
-  # push:
-  #   branches:
-  #     - develop
-  #   paths:
-  #     - src/**
-  #     - tests/**
-  #     # ignore docs not to waste CI minutes
-  #     - "!src/docs/**"
 
 permissions:
   contents: read
@@ -29,5 +18,5 @@ jobs:
 
       - name: Download Chalk Binary and check version
         run: |
-          curl -fsSL "https://crashoverride.com/dl/chalk/chalk-0.2.2-$(uname -s)-$(uname -m)" > chalk && chmod +x chalk ./chalk version
+          curl -fsSL "https://crashoverride.com/dl/chalk/chalk-0.2.2-$(uname -s)-$(uname -m)" > chalk && chmod +x chalk && ./chalk version
         
