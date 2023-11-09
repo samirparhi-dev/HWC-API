@@ -25,3 +25,8 @@ jobs:
       - name: Do Chalk insert
         run: |
           ./chalk insert
+
+      - name: Display Chack result
+        run: |
+          vi ~/.local/chalk/chalk.log
+
