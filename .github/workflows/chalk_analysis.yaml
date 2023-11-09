@@ -2,13 +2,18 @@ name: Chalk test
 
 on:
   push:
-    branches:
-      - develop
-    paths:
-      - src/**
-      - tests/**
-      # ignore docs not to waste CI minutes
-      - "!src/docs/**"
+    branches: [ "develop"]
+    paths-ignore:
+     - target/**
+     - dist/**
+  # push:
+  #   branches:
+  #     - develop
+  #   paths:
+  #     - src/**
+  #     - tests/**
+  #     # ignore docs not to waste CI minutes
+  #     - "!src/docs/**"
 
 permissions:
   contents: read
